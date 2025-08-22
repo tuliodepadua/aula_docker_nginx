@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - node
+      - py
+    networks:
+      - app-network
+
+  node:
+    build: ./node
+    expose:
+      - "3000"
+    networks:
+      - app-network
+
+  py:
+    build: ./py
+    expose:
+      - "5000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
